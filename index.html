@@ -1,0 +1,392 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Cadu Andrade — Digital Designer / Creative Technologist">
+<title>Cadu Andrade — Portfolio</title>
+
+<style>
+:root{
+  --bg:#0a0a0a;--fg:#f4f4f2;--muted:#8b8b8b;--border:#272727;
+  --card:#151515;--accent:#b7ff42;--button:#080808
+}
+html.light{
+  --bg:#faf9f6;--fg:#1c1c1b;--muted:#777;--border:#deddd8;
+  --card:#fff;--accent:#df6500;--button:#fff
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+::selection{background:var(--accent);color:#000}
+
+.container{width:min(1024px,calc(100% - 48px));margin:auto;position:relative;z-index:5}
+.nav{position:fixed;inset:0 0 auto;z-index:50;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(18px)}
+.nav-inner{width:min(1024px,calc(100% - 48px));height:72px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;display:flex;align-items:center;gap:9px}
+.brand i{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:14px;color:var(--muted);position:relative}
+.nav-links a:after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:1px;background:var(--accent);transition:.3s}
+.nav-links a:hover:after{width:100%}
+.theme{width:42px;height:42px;border:1px solid var(--border);border-radius:50%;background:transparent;cursor:pointer;display:grid;place-items:center}
+.theme svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8}
+.theme .moon{display:none}
+html.light .theme .sun{display:none}
+html.light .theme .moon{display:block}
+.menu{display:none;background:none;border:0}
+.mobile-menu{display:none}
+
+.progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:100}
+.progress b{display:block;height:100%;width:0;background:var(--accent)}
+
+.noise{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.dots{position:fixed;inset:0;pointer-events:none;opacity:.035;background-image:radial-gradient(circle at 1px 1px,currentColor 1px,transparent 0);background-size:28px 28px}
+.cursor{position:fixed;z-index:110;pointer-events:none;display:none;mix-blend-mode:difference}
+.cursor i{display:block;width:18px;height:18px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);transition:transform .18s cubic-bezier(.16,1,.3,1)}
+
+.hero{min-height:94vh;padding:130px 0 70px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.eyebrow{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em;color:var(--muted);display:flex;align-items:center;gap:9px}
+.eyebrow i{display:block;width:32px;height:1px;background:var(--accent)}
+.hero h1{font-size:clamp(76px,13vw,138px);line-height:.83;letter-spacing:-.085em;margin:34px 0;font-weight:900}
+.hero h1 span{display:inline-block;vertical-align:baseline}.hero h1>span+span{margin-left:.18em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+
+.hero-copy{max-width:650px;opacity:0;transform:translateY(18px);animation:rise .8s .85s forwards}
+.hero-copy p{font-size:20px;line-height:1.6;color:var(--muted);margin:0}
+.hero-copy strong{color:var(--fg)}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:32px;opacity:0;animation:rise .8s 1s forwards}
+.button{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border:1px solid var(--border);border-radius:999px;font-size:14px;font-weight:700;transition:transform .25s,background .25s}
+.button.primary{background:var(--accent);color:var(--button);border-color:var(--accent)}
+.scroll{margin-top:70px;display:flex;flex-direction:column;align-items:center;gap:9px;opacity:.5}
+.scroll span{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase}
+.scroll i{height:42px;width:1px;background:var(--border);overflow:hidden;position:relative}
+.scroll b{position:absolute;width:100%;height:12px;background:var(--accent);animation:scroll 1.7s infinite}
+
+.section{padding:110px 0}
+.heading{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:50px}
+.heading h2{font-size:clamp(42px,6vw,62px);line-height:.9;letter-spacing:-.07em;margin:0;font-weight:900}
+.heading>span{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.work-row{display:grid;grid-template-columns:1fr 2fr auto;gap:30px;align-items:center;padding:30px 0;border-top:1px solid var(--border)}
+.meta{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+.meta small{letter-spacing:.12em}
+.work-row h3{font-size:29px;margin:0 0 7px;letter-spacing:-.04em}
+.work-row h3 b{opacity:0;transition:.25s}
+.work-row:hover h3 b{opacity:1}
+.work-row p{font-size:15px;line-height:1.6;color:var(--muted);margin:0;max-width:640px}
+.view{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent)}
+
+.portfolio-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:28px}
+.portfolio-head h2{font-size:clamp(52px,7vw,72px);line-height:.9;letter-spacing:-.07em;margin:14px 0 0}
+.portfolio-head p{max-width:460px;color:var(--muted);line-height:1.6;margin:0}
+.kicker{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;color:var(--muted)}
+.status{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);min-height:18px;margin-bottom:12px}
+
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:115px;grid-auto-flow:dense;gap:14px}
+.tile{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:24px;background:var(--card);isolation:isolate;opacity:0;transform:translateY(25px)}
+.tile.show{opacity:1;transform:none;transition:opacity .8s,transform .8s cubic-bezier(.16,1,.3,1)}
+.tile img,.tile video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.tile:hover img,.tile:hover video{transform:scale(1.035)}
+.tile:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.58));opacity:0;transition:.3s;pointer-events:none}
+.tile:hover:after{opacity:1}
+.caption{position:absolute;left:12px;bottom:12px;z-index:2;opacity:0;transform:translateY(8px);transition:.3s}
+.tile:hover .caption{opacity:1;transform:none}
+.caption span{padding:9px 11px;border-radius:12px;background:rgba(0,0,0,.55);backdrop-filter:blur(9px);color:#fff;font:10px ui-monospace,SFMono-Regular,Menlo,monospace}
+.empty{grid-column:1/-1;min-height:270px;border:1px dashed var(--border);border-radius:24px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:30px}
+.empty strong{display:block;color:var(--fg);margin-bottom:8px}
+.empty code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace}
+
+.about-card{border:1px solid var(--border);background:var(--card);border-radius:28px;padding:48px;display:grid;grid-template-columns:2fr 1fr;gap:45px}
+.about-card h2{font-size:42px;line-height:.98;letter-spacing:-.055em;margin:18px 0 20px}
+.about-card p{color:var(--muted);line-height:1.7;margin:0}
+.skills{display:flex;flex-direction:column;justify-content:center;gap:20px;color:var(--muted);font-size:14px}
+.skills b{color:var(--accent);display:inline-block;width:22px}
+
+.contact{text-align:center}
+.contact h2{font-size:clamp(60px,10vw,100px);line-height:.9;letter-spacing:-.08em;margin:18px 0}
+.contact p{color:var(--muted);max-width:520px;margin:auto;line-height:1.6}
+footer{border-top:1px solid var(--border);padding:55px 0;display:flex;justify-content:space-between;gap:20px;color:var(--muted);font-size:13px}
+footer div{display:flex;gap:20px}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.show{opacity:1;transform:none}
+
+@keyframes charIn{to{opacity:1;transform:none}}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes scroll{0%{transform:translateY(-120%)}100%{transform:translateY(300%)}}
+
+@media(min-width:900px){.cursor{display:block}}
+@media(max-width:800px){
+  .container,.nav-inner{width:min(100% - 34px,1024px)}
+  .nav-links{display:none}.menu{display:block}
+  .mobile-menu{display:flex;max-height:0;overflow:hidden;flex-direction:column;gap:20px;padding:0 17px;transition:.4s}
+  .mobile-menu.open{max-height:300px;padding:20px 17px;border-top:1px solid var(--border)}
+  .mobile-menu a,.mobile-menu button{background:none;border:0;text-align:left;padding:0}
+  .hero{min-height:90vh;padding-top:120px}
+  .hero h1{font-size:clamp(66px,17vw,110px)}
+  .hero-copy p{font-size:17px}
+  .section{padding:85px 0}
+  .work-row{grid-template-columns:1fr;gap:13px}
+  .view{display:none}
+  .portfolio-head{display:block}
+  .portfolio-head p{margin-top:20px}
+  .bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:190px}
+  .tile{grid-column:span 1!important;grid-row:span 1!important}
+  .tile:nth-child(3n){grid-column:span 2!important}
+  .about-card{grid-template-columns:1fr;padding:30px}
+  footer{flex-direction:column}
+}
+@media(max-width:520px){
+  .bento{grid-template-columns:1fr;grid-auto-rows:270px}
+  .tile,.tile:nth-child(3n){grid-column:span 1!important}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+</head>
+
+<body>
+<div class="progress"><b id="progress"></b></div>
+<div class="noise"></div><div class="dots"></div>
+<div class="cursor" id="cursor"><i></i></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top"><i></i>CADU / 2026</a>
+    <div class="nav-links">
+      <a href="#work">Work</a><a href="#portfolio">Portfolio</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <button class="theme" id="theme" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+        <svg class="moon" viewBox="0 0 24 24"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 8.5 8.5 0 0 0 21 14.5Z"></path></svg>
+      </button>
+    </div>
+    <button class="menu" id="menu" aria-label="Open menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobile">
+    <a href="#work">Work</a><a href="#portfolio">Portfolio</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <button id="mobileTheme">Toggle theme</button>
+  </div>
+</nav>
+
+<main class="container" id="top">
+
+<header class="hero">
+  <div class="eyebrow"><i></i>Digital Designer · Creative Technologist<i></i></div>
+  <h1>
+    <span id="first">CADU</span>
+    <span><em id="second">ANDRADE</em></span>
+  </h1>
+  <div class="hero-copy">
+    <p>I design digital experiences where <strong>creative thinking meets technology</strong> — combining design, code, automation and AI to make ideas move faster.</p>
+  </div>
+  <div class="actions">
+    <a class="button primary magnetic" href="#portfolio">See my work <span>↗</span></a>
+    <a class="button magnetic" href="https://www.behance.net/caduvid0ac9" target="_blank" rel="noreferrer">Behance <span>↗</span></a>
+  </div>
+  <div class="scroll"><span>Scroll</span><i><b></b></i></div>
+</header>
+
+<section class="section" id="work">
+  <div class="heading reveal"><h2>Selected<br>Work</h2><span>04 systems</span></div>
+
+  <a class="work-row reveal" href="#portfolio">
+    <div class="meta"><span>2021—NOW</span><small>CREATIVE TECHNOLOGY</small></div>
+    <div><h3>Creative Automation <b>↗</b></h3><p>Production systems using JavaScript, Python, HTML, CSS, APIs and AI to reduce repetitive work and scale creative output.</p></div>
+    <strong class="view">View ↗</strong>
+  </a>
+
+  <a class="work-row reveal" href="#portfolio">
+    <div class="meta"><span>2021—NOW</span><small>PERFORMANCE</small></div>
+    <div><h3>Digital Campaigns <b>↗</b></h3><p>Key Visuals, performance creatives, animated assets and high-volume adaptations across digital platforms.</p></div>
+    <strong class="view">View ↗</strong>
+  </a>
+
+  <a class="work-row reveal" href="#portfolio">
+    <div class="meta"><span>2021—NOW</span><small>FIGMA</small></div>
+    <div><h3>Production Plugins <b>↗</b></h3><p>Figma tools for automated naming, file organization and frame generation, built around real production problems.</p></div>
+    <strong class="view">View ↗</strong>
+  </a>
+
+  <a class="work-row reveal" href="#portfolio">
+    <div class="meta"><span>2021—NOW</span><small>AI</small></div>
+    <div><h3>AI-Assisted Workflows <b>↗</b></h3><p>AI for tool development, data analysis, creative production, process optimization and faster experimentation.</p></div>
+    <strong class="view">View ↗</strong>
+  </a>
+</section>
+
+<section class="section" id="portfolio">
+  <div class="portfolio-head reveal">
+    <div><span class="kicker">VISUAL ARCHIVE</span><h2>My Work.</h2></div>
+    <p>A selection of visual work spanning campaigns, key visuals, motion and digital production.</p>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="bento" id="bento"></div>
+</section>
+
+<section class="section" id="about">
+  <div class="about-card reveal">
+    <div>
+      <span class="kicker">ABOUT CADU</span>
+      <h2>Creative thinking.<br>Technical execution.</h2>
+      <p>Digital Designer and Creative Technologist with 10 years of experience in design and digital marketing. My work spans Key Visuals, digital campaigns, social media, OOH, motion design, performance creatives and high-volume production — increasingly connected to automation, AI and creative technology.</p>
+    </div>
+    <div class="skills">
+      <div><b>◌</b> HTML · CSS · JavaScript · Python</div>
+      <div><b>◇</b> Figma plugins &amp; production tools</div>
+      <div><b>✦</b> AI &amp; creative automation</div>
+      <div><b>□</b> Visual design &amp; campaigns</div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <span class="kicker reveal">LET'S BUILD SOMETHING</span>
+  <h2 class="reveal">Say hello.</h2>
+  <p class="reveal">Available for creative technology, digital design, automation and experimental projects.</p>
+  <div class="actions reveal">
+    <a class="button primary magnetic" href="mailto:">Email <span>↗</span></a>
+    <a class="button magnetic" href="https://www.linkedin.com/in/cadueam/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Cadu Andrade — Digital Designer / Creative Technologist</p>
+  <div><a href="https://www.linkedin.com/in/cadueam/" target="_blank">LinkedIn ↗</a><a href="https://www.behance.net/caduvid0ac9" target="_blank">Behance ↗</a></div>
+</footer>
+</main>
+
+<script>
+
+const IMAGES = [
+  "chaos.jpg",
+  "dodge.jpg",
+  "obsession.jpg",
+];
+
+const FOLDER = "assets/portfolio/";
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+function esc(v){
+  return v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function title(name){
+  return name.replace(/\.[^/.]+$/,"").replace(/[-_]+/g," ");
+}
+
+function reveal(){
+  const items=$$(".reveal:not(.observed)");
+  if(!("IntersectionObserver" in window)){items.forEach(x=>x.classList.add("show"));return}
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add("show","observed");
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.13});
+  items.forEach(x=>io.observe(x));
+}
+
+function loadImages(){
+  const grid=$("#bento"), status=$("#status");
+  const images = IMAGES.map(n=>n.trim()).filter(n=>n.length>0);
+
+  if(!images.length){
+    grid.innerHTML='<div class="empty"><div><strong>Coming soon.</strong></div></div>';
+    return;
+  }
+
+  const patterns=[
+    ["span 7","span 3"],
+    ["span 5","span 3"],
+    ["span 4","span 3"],
+    ["span 8","span 4"],
+    ["span 5","span 4"],
+    ["span 7","span 4"]
+  ];
+
+  grid.innerHTML = images.map((name, i) => {
+    const src   = esc(FOLDER + name);
+    const label = esc(title(name));
+    const isVideo = /\.(mp4|webm|mov)$/i.test(name);
+    const media = isVideo
+      ? '<video src="' + src + '" autoplay muted loop playsinline></video>'
+      : '<img src="' + src + '" alt="' + label + '" loading="lazy">';
+    return '<a class="tile" href="' + src + '" target="_blank" rel="noreferrer">' +
+      media +
+      '<div class="caption"><span>' + label + ' ↗</span></div></a>';
+  }).join("");
+
+  [...grid.children].forEach((el, i) => {
+    const p = patterns[i % patterns.length];
+    el.style.gridColumn = p[0];
+    el.style.gridRow    = p[1];
+    setTimeout(() => el.classList.add("show"), 70 + i * 55);
+  });
+
+  status.textContent = String(images.length).padStart(2,"0") +
+    " PROJECT" + (images.length === 1 ? "" : "S") + " / LOCAL";
+}
+
+
+
+function cursor(){
+  const c=$("#cursor"),dot=c?.querySelector("i");
+  if(!c || matchMedia("(pointer:coarse)").matches) return;
+  let x=-100,y=-100,tx=-100,ty=-100;
+  addEventListener("mousemove",e=>{tx=e.clientX;ty=e.clientY},{passive:true});
+  function loop(){x+=(tx-x)*.18;y+=(ty-y)*.18;c.style.transform=`translate(${x}px,${y}px)`;requestAnimationFrame(loop)}
+  loop();
+  document.addEventListener("mouseover",e=>{
+    if(e.target.closest("a,button,.tile")) dot.style.transform="translate(-50%,-50%) scale(2.2)";
+  });
+  document.addEventListener("mouseout",e=>{
+    if(e.target.closest("a,button,.tile")) dot.style.transform="translate(-50%,-50%) scale(1)";
+  });
+}
+
+function magnetic(){
+  if(matchMedia("(pointer:coarse)").matches)return;
+  $$(".magnetic").forEach(el=>{
+    el.addEventListener("mousemove",e=>{
+      const r=el.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);
+      el.style.transform=`translate(${dx*.13}px,${dy*.13}px)`;
+    });
+    el.addEventListener("mouseleave",()=>el.style.transform="translate(0,0)");
+  });
+}
+
+function theme(){
+  if(localStorage.caduTheme==="light")document.documentElement.classList.add("light");
+  const toggle=()=>{
+    document.documentElement.classList.toggle("light");
+    localStorage.caduTheme=document.documentElement.classList.contains("light")?"light":"dark";
+  };
+  $("#theme").onclick=toggle;$("#mobileTheme").onclick=toggle;
+}
+
+function menu(){
+  $("#menu").onclick=()=>$("#mobile").classList.toggle("open");
+  $$("#mobile a").forEach(a=>a.onclick=()=>$("#mobile").classList.remove("open"));
+}
+
+function progress(){
+  addEventListener("scroll",()=>{
+    const d=document.documentElement,max=d.scrollHeight-d.clientHeight;
+    $("#progress").style.width=(max?d.scrollTop/max*100:0)+"%";
+  },{passive:true});
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  reveal();cursor();magnetic();theme();menu();progress();loadImages();
+});
+</script>
+
+</body>
+</html>
